@@ -22,7 +22,7 @@ import os
 
 
 def train_fn(
-    disc_H, disc_Z, gen_Z, gen_H, loader, opt_disc, opt_gen, l1, mse, d_scaler, g_scaler
+    disc_H, disc_Z, gen_Z, gen_H, loader, opt_disc, opt_gen, l1, mse, d_scaler, g_scaler, epoch
 ):
     H_reals = 0
     H_fakes = 0
@@ -94,8 +94,8 @@ def train_fn(
         g_scaler.update()
 
         if idx % 200 == 0:
-            save_image(fake_horse * 0.5 + 0.5, f"saved_images/horse_{idx}.png")
-            save_image(fake_zebra * 0.5 + 0.5, f"saved_images/zebra_{idx}.png")
+            save_image(fake_horse * 0.5 + 0.5, f"saved_images/landscape_{idx}_{epoch}.png")
+            save_image(fake_zebra * 0.5 + 0.5, f"saved_images/anime_{idx}_{epoch}.png")
 
         loop.set_postfix(H_real=H_reals / (idx + 1), H_fake=H_fakes / (idx + 1))
 
@@ -185,6 +185,7 @@ def main():
             mse,
             d_scaler,
             g_scaler,
+            epoch
         )
 
         if config.SAVE_MODEL:
