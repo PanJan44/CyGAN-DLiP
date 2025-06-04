@@ -94,6 +94,8 @@ def train_fn(
         g_scaler.update()
 
         if idx % 200 == 0:
+            combined = np.hstack((horse, fake_horse))
+            cv2.imshow('Original vs Generated', combined)
             save_image(fake_horse * 0.5 + 0.5, f"saved_images/landscape_{idx}_{epoch}.png")
             save_image(fake_zebra * 0.5 + 0.5, f"saved_images/anime_{idx}_{epoch}.png")
 
